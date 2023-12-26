@@ -5,15 +5,15 @@ export const revalidate = 10;
 
 export default function Home() {
   return (
-    <main className="px-6 mx-auto">
+    <div className="mx-auto">
       <MyProfilePic />
       <p className="mt-12 mb-12 text-3xl text-center dark:text-white">
         Hey there👋&nbsp;
         <span className="whitespace-nowrap">
-          I&apos;m <span className="font-bold">Bhishman</span>.
+          I'm <span className="font-bold">Bhishman</span>.
         </span>
       </p>
       <Posts />
-    </main>
+    </div>
   );
 }
