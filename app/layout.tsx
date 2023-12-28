@@ -5,6 +5,9 @@ import { Metadata } from "next";
 export const metadata: Metadata = {
   title: "Bhishman's Blog",
   description: "Created by Bhishman Desai",
+  verification: {
+    google: process.env.GOOGLE_SEARCH_CONSOLE_TOKEN
+  }
 };
 
 export default function RootLayout({
