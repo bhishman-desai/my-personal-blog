@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { FaGithub, FaLaptop, FaLinkedin } from "react-icons/fa";
 import { IoHomeOutline } from "react-icons/io5";
+import { SiBuymeacoffee } from "react-icons/si";
 
 export default function Navbar() {
   return (
@@ -37,6 +38,13 @@ export default function Navbar() {
             target="_blank"
           >
             <FaGithub />
+          </Link>
+          <Link
+            className="text-white/90 hover:text-white"
+            href="https://www.buymeacoffee.com/bhishman_"
+            target="_blank"
+          >
+            <SiBuymeacoffee />
           </Link>
         </div>
       </div>
