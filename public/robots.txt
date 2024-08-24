@@ -3,7 +3,7 @@ User-agent: *
 Allow: /
 
 # Host
-Host: https://your-domain.com
+Host: https://bhishman-blogs.vercel.app/
 
 # Sitemaps
-Sitemap: https://your-domain.com/sitemap.xml
+Sitemap: https://bhishman-blogs.vercel.app/sitemap.xml
