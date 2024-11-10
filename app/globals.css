@@ -1,3 +1,13 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* Add a scrollbar for code blocks that have any class associated */
+code[class] {
+    display: block;
+    max-height: 30em;
+    overflow-y: auto;
+    white-space: pre-wrap;
+    padding: 1em;
+}
+
