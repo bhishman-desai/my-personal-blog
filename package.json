@@ -10,7 +10,7 @@
     "postbuild": "next-sitemap"
   },
   "dependencies": {
-    "@types/node": "18.15.5",
+    "@types/node": "^22.0.0",
     "@types/react": "18.0.28",
     "@types/react-dom": "18.0.11",
     "@vercel/blob": "^0.19.0",
@@ -35,5 +35,8 @@
     "autoprefixer": "^10.4.14",
     "postcss": "^8.4.21",
     "tailwindcss": "^3.2.7"
+  },
+  "engines": {
+    "node": "22.x"
   }
 }
