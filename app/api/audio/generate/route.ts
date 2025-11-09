@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getPostByName } from "@/lib/posts";
-import { extractTextFromReactNode, cleanTextForTTS } from "@/lib/textExtraction";
+import { extractTextFromMDX, cleanTextForTTS } from "@/lib/textExtraction";
 import { generateAudioFromVoiceAPI } from "@/lib/voiceApi";
 import { saveAudio, audioExists } from "@/lib/audioStorage";
 
@@ -33,8 +33,19 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Extract text from post
-    const rawText = extractTextFromReactNode(post.content);
+    // Extract text from raw MDX source (better than React tree)
+    const rawMDX = post.rawMDX || '';
+    let rawText = '';
+    
+    if (rawMDX) {
+      // Extract text from raw MDX
+      rawText = extractTextFromMDX(rawMDX);
+    } else {
+      // Fallback: try to extract from React content if rawMDX not available
+      const { extractTextFromReactNode } = await import('@/lib/textExtraction');
+      rawText = extractTextFromReactNode(post.content);
+    }
+    
     const titleText = post.meta.title;
     const fullText = `${titleText}. ${rawText}`;
     const cleanText = cleanTextForTTS(fullText);
@@ -47,7 +58,7 @@ export async function POST(request: NextRequest) {
     }
 
     // Generate audio using voice API
-    const base64Audio = await generateAudioFromVoiceAPI(cleanText, 'en');
+    const base64Audio = await generateAudioFromVoiceAPI(cleanText);
 
     // Save audio file
     await saveAudio(postId, base64Audio);

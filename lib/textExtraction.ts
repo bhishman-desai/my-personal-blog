@@ -1,6 +1,49 @@
 /**
- * Extract plain text from MDX content
+ * Extract plain text from raw MDX source
+ * This extracts text from markdown before it's compiled to React
+ */
+export function extractTextFromMDX(rawMDX: string): string {
+  // Remove frontmatter (content between --- markers)
+  let content = rawMDX.replace(/^---[\s\S]*?---\n/, '');
+  
+  // Remove markdown code blocks (```code```)
+  content = content.replace(/```[\s\S]*?```/g, '');
+  
+  // Remove inline code (`code`)
+  content = content.replace(/`[^`]+`/g, '');
+  
+  // Remove markdown links but keep the text [text](url) -> text
+  content = content.replace(/\[([^\]]+)\]\([^\)]+\)/g, '$1');
+  
+  // Remove markdown images ![alt](url) -> alt text
+  content = content.replace(/!\[([^\]]*)\]\([^\)]+\)/g, '$1');
+  
+  // Remove markdown headers (# ## ### etc) but keep the text
+  content = content.replace(/^#{1,6}\s+(.+)$/gm, '$1');
+  
+  // Remove markdown bold/italic markers
+  content = content.replace(/\*\*([^\*]+)\*\*/g, '$1');
+  content = content.replace(/\*([^\*]+)\*/g, '$1');
+  content = content.replace(/__([^_]+)__/g, '$1');
+  content = content.replace(/_([^_]+)_/g, '$1');
+  
+  // Remove markdown list markers
+  content = content.replace(/^[\s]*[-*+]\s+/gm, '');
+  content = content.replace(/^[\s]*\d+\.\s+/gm, '');
+  
+  // Remove markdown blockquotes
+  content = content.replace(/^>\s+/gm, '');
+  
+  // Remove HTML tags if any
+  content = content.replace(/<[^>]+>/g, '');
+  
+  return content;
+}
+
+/**
+ * Extract plain text from MDX content (React element tree)
  * This function recursively extracts text from React elements
+ * @deprecated Use extractTextFromMDX for better results
  */
 export function extractTextFromReactNode(node: any): string {
   if (typeof node === 'string') {
@@ -75,4 +118,3 @@ export function cleanTextForTTS(text: string): string {
     .replace(/\n+/g, ' ') // Replace newlines with spaces
     .trim();
 }
-

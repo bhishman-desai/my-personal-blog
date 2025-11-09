@@ -8,4 +8,5 @@ type Meta = {
 type BlogPost = {
   meta: Meta;
   content:  ReactElement<any, string | JSXElementConstructor<any>>;
+  rawMDX?: string; // Raw MDX source for text extraction
 };

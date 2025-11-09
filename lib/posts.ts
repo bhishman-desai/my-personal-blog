@@ -71,6 +71,7 @@ export const getPostByName = async (
       tags: frontmatter.tags,
     },
     content,
+    rawMDX, // Include raw MDX for text extraction
   };
 };
 

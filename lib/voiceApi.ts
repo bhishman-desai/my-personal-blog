@@ -4,7 +4,6 @@
  */
 export async function generateAudioFromVoiceAPI(
   text: string,
-  language: string = 'en',
   maxRetries: number = 5
 ): Promise<string> {
   const apiUrl = process.env.VOICE_CLONE_API_URL;
@@ -17,14 +16,18 @@ export async function generateAudioFromVoiceAPI(
   
   for (let attempt = 1; attempt <= maxRetries; attempt++) {
     try {
+      const requestBody = {
+        data: [text]
+      };
+
+      const jsonBody = JSON.stringify(requestBody);
+
       const response = await fetch(apiUrl, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({
-          data: [text, language]
-        }),
+        body: jsonBody,
       });
 
       if (!response.ok) {
