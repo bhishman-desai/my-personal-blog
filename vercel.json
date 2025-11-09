@@ -2,5 +2,10 @@
   "buildCommand": "npm run build",
   "devCommand": "npm run dev",
   "installCommand": "npm install",
-  "framework": "nextjs"
+  "framework": "nextjs",
+  "functions": {
+    "app/api/audio/generate/route.ts": {
+      "maxDuration": 900
+    }
+  }
 }
